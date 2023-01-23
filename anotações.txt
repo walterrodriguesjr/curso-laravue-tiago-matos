@@ -1,5 +1,62 @@
-0-introdução 
+1-preparando o ambiente 
 
 
-1-apresentação 
--
+1-Instalando o laravel via composer
+-já usando o template próprio 
+
+1.1-instalando o laravel via laravel CLI
+-instalando por CLI (já visto)
+
+1.2-dicas do comando artisan
+-ok 
+
+
+2-roteamento 
+
+
+2-criando rotas 
+-as Routes do laravel contém: 
+1-Route = a classe do laravel para routes 
+2-método HTTP(get, post etc...) diz qual será o tipo de ação 
+3-URI = para onde a route aponta 
+4-o controller que se comunica com a route 
+5-o método do referido controller que está Route chama 
+
+2.1-rotas com múltiplos verbos HTTP 
+-um Route pode ter vários verbos HTTP, sendo um array de verbos HTTP 
+    ex: Route::march(['get', 'post'], 'users', function() {return "Testando rota com match"}); 
+
+2.2-rotas nomeadas 
+-facilita pois, em vez de sempre chamar a route pela sua URI, chama-se pelo name() da referida route 
+    ex: Route::get('/users', function() {return 'Hello World'})->name('users');
+
+2.3-redirecionando rotas 
+-usa o método http redirect() 
+    Route::redirect('rota-a', 'rota-b');
+-a route também pode ser redirecionada no retorno, pelo método laravel redirect()
+    ex:Route::get('rota-a', function() {
+        return redirect('rota-b');
+    });
+-no retorno, também é possível, no return, redirecionar usando após o redirect(), o método route() o qual recebe 
+    o name() da route de destino 
+
+2.4-rotas de visualização 
+-ao chamar a Route, é possível utilizar o helper ::view, para direcionar para uma view específica, informando 
+    sua URL, e em seguida o seu nome 
+    ex: Route::view('/welcome', 'welcome');
+
+2.5-rotas com parâmetros 
+-geralment,e em route como show, put ou delete, após informar a URI, espera-se um parâmentro de indentificação 
+
+2.6-validando parâmetros 
+-é possível fazer validações já nas routes, não tendo que esperar para fazer somente em middlewares ou controlleres 
+    ex: Route::get('/user/{id}/{name}', function($id = null, $name = null) {
+    return 'User ' . $id . ' - ' . $name;
+        })->where([
+         'id' => '[0-9]+',
+         'name' => '[A-Za-z]+'
+]);
+-existem helpers usando where de todo tipo, que busca apenas numeros, alphanumeric, Uuid etc...
+
+
+
